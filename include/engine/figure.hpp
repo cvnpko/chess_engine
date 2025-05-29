@@ -6,7 +6,8 @@ namespace engine
     enum class figure_color
     {
         WHITE,
-        BLACK
+        BLACK,
+        NONE
     };
     enum class figure_type
     {
@@ -21,6 +22,7 @@ namespace engine
     class figure
     {
     public:
+        figure();
         figure(figure_type type, figure_color color);
         figure_type get_type() const;
         figure_color get_color() const;

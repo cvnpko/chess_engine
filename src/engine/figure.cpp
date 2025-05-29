@@ -2,8 +2,11 @@
 
 namespace engine
 {
+    figure::figure()
+        : type(figure_type::NONE), color(figure_color::NONE) {}
     figure::figure(figure_type type, figure_color color)
         : type(type), color(color) {}
+
     figure_type figure::get_type() const
     {
         return type;
