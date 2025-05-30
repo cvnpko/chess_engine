@@ -1,0 +1,3 @@
+/home/cvnpko/Desktop/chess_engine/build/CMakeFiles/chess_engine.dir
+/home/cvnpko/Desktop/chess_engine/build/CMakeFiles/edit_cache.dir
+/home/cvnpko/Desktop/chess_engine/build/CMakeFiles/rebuild_cache.dir
