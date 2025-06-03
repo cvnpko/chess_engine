@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/cvnpko/Desktop/chess_engine/main.cpp" "CMakeFiles/chess_engine.dir/main.cpp.o" "gcc" "CMakeFiles/chess_engine.dir/main.cpp.o.d"
-  "/home/cvnpko/Desktop/chess_engine/src/engine/board.cpp" "CMakeFiles/chess_engine.dir/src/engine/board.cpp.o" "gcc" "CMakeFiles/chess_engine.dir/src/engine/board.cpp.o.d"
-  "/home/cvnpko/Desktop/chess_engine/src/engine/figure.cpp" "CMakeFiles/chess_engine.dir/src/engine/figure.cpp.o" "gcc" "CMakeFiles/chess_engine.dir/src/engine/figure.cpp.o.d"
-  "/home/cvnpko/Desktop/chess_engine/src/gui/board_renderer.cpp" "CMakeFiles/chess_engine.dir/src/gui/board_renderer.cpp.o" "gcc" "CMakeFiles/chess_engine.dir/src/gui/board_renderer.cpp.o.d"
-  "/home/cvnpko/Desktop/chess_engine/src/gui/event_handler.cpp" "CMakeFiles/chess_engine.dir/src/gui/event_handler.cpp.o" "gcc" "CMakeFiles/chess_engine.dir/src/gui/event_handler.cpp.o.d"
-  "/home/cvnpko/Desktop/chess_engine/src/gui/window.cpp" "CMakeFiles/chess_engine.dir/src/gui/window.cpp.o" "gcc" "CMakeFiles/chess_engine.dir/src/gui/window.cpp.o.d"
+  "D:/Projects/GitHub/chess_engine/main.cpp" "CMakeFiles/chess_engine.dir/main.cpp.obj" "gcc" "CMakeFiles/chess_engine.dir/main.cpp.obj.d"
+  "D:/Projects/GitHub/chess_engine/src/engine/board.cpp" "CMakeFiles/chess_engine.dir/src/engine/board.cpp.obj" "gcc" "CMakeFiles/chess_engine.dir/src/engine/board.cpp.obj.d"
+  "D:/Projects/GitHub/chess_engine/src/engine/figure.cpp" "CMakeFiles/chess_engine.dir/src/engine/figure.cpp.obj" "gcc" "CMakeFiles/chess_engine.dir/src/engine/figure.cpp.obj.d"
+  "D:/Projects/GitHub/chess_engine/src/gui/board_renderer.cpp" "CMakeFiles/chess_engine.dir/src/gui/board_renderer.cpp.obj" "gcc" "CMakeFiles/chess_engine.dir/src/gui/board_renderer.cpp.obj.d"
+  "D:/Projects/GitHub/chess_engine/src/gui/event_handler.cpp" "CMakeFiles/chess_engine.dir/src/gui/event_handler.cpp.obj" "gcc" "CMakeFiles/chess_engine.dir/src/gui/event_handler.cpp.obj.d"
+  "D:/Projects/GitHub/chess_engine/src/gui/window.cpp" "CMakeFiles/chess_engine.dir/src/gui/window.cpp.obj" "gcc" "CMakeFiles/chess_engine.dir/src/gui/window.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
