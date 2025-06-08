@@ -18,6 +18,8 @@ namespace engine
         void setBoardSide(BoardSide newSide);
         void changeBoardSide() const;
         const Figure (&getBoardGrid() const)[8][8];
+        bool validMove(int xStart, int yStart, int xEnd, int yEnd);
+        void update(int xStart, int yStart, int xEnd, int yEnd);
 
     private:
         Figure boardGrid[8][8];

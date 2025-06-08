@@ -18,8 +18,10 @@ namespace gui
         gui::Window &window;
         float squareSize = 100.0f;
         bool pieceSelected = false;
+        int selectedRow, selectedCol;
         sf::Vector2i selectedSquare;
         void handleEvent(const sf::Event &event);
+        void handleClick(int x, int y);
         sf::Vector2i getBoardCoordinates(int x, int y) const;
     };
 }

@@ -28,6 +28,7 @@ namespace engine
         FigureColor getColor() const;
         bool getPinned() const;
         void setPinned(bool pinStatus);
+        bool validMove(int x_start, int y_start, int x, int y);
 
     private:
         FigureType type;

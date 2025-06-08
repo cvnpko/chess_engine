@@ -62,4 +62,13 @@ namespace engine
     {
         return boardGrid;
     }
+    bool Board::validMove(int xStart, int yStart, int xEnd, int yEnd)
+    {
+        return boardGrid[xStart][yStart].validMove(xStart, yStart, xEnd, yEnd);
+    }
+    void Board::update(int xStart, int yStart, int xEnd, int yEnd)
+    {
+        boardGrid[xEnd][yEnd] = boardGrid[xStart][yStart];
+        boardGrid[xStart][yStart] = Figure();
+    }
 }

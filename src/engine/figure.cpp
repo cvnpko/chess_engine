@@ -27,4 +27,8 @@ namespace engine
     {
         pinned = pinstatus;
     }
+    bool Figure::validMove(int x_start, int y_start, int x_end, int y_end)
+    {
+        return true;
+    }
 }
