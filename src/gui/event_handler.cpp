@@ -2,12 +2,10 @@
 
 namespace gui
 {
-
     EventHandler::EventHandler(engine::Board &b, gui::Window &w)
         : board(b), window(w), pieceSelected(false)
     {
     }
-
     void EventHandler::processEvents()
     {
         sf::Event event;

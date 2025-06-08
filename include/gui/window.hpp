@@ -22,7 +22,6 @@ namespace gui
     private:
         sf::RenderWindow window;
     };
-
 }
 
 #endif

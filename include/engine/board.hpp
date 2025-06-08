@@ -14,15 +14,13 @@ namespace engine
     {
     public:
         Board();
-        BoardSide get_board_side() const;
-        void set_board_side(BoardSide new_side);
-        void change_board_side() const;
+        BoardSide getBoardSide() const;
+        void setBoardSide(BoardSide newSide);
+        void changeBoardSide() const;
+
     private:
-        Figure board_grid[8][8];
-        BoardSide board_side;
-       
-
-
+        Figure boardGrid[8][8];
+        BoardSide boardSide;
     };
 }
 

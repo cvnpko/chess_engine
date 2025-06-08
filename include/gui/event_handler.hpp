@@ -7,7 +7,6 @@
 
 namespace gui
 {
-
     class EventHandler
     {
     public:
@@ -23,6 +22,6 @@ namespace gui
         void handleEvent(const sf::Event &event);
         sf::Vector2i getBoardCoordinates(int x, int y) const;
     };
-
 }
+
 #endif

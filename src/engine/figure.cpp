@@ -2,33 +2,29 @@
 
 namespace engine
 {
-    Figure::Figure() : type(Figure_type::NONE), color(Figure_color::NONE) 
+    Figure::Figure() : type(FigureType::NONE), color(FigureColor::NONE), pinned(false)
     {
-        pinned = false;
     }
-    Figure::Figure(Figure_type type, Figure_color color)
+    Figure::Figure(FigureType type, FigureColor color)
     {
         this->type = type;
         this->color = color;
         pinned = false;
     }
-
-    Figure_type Figure::get_type() const
+    FigureType Figure::getType() const
     {
         return type;
     }
-    Figure_color Figure::get_color() const
+    FigureColor Figure::getColor() const
     {
         return color;
     }
-
-    bool Figure::get_pinned() const
+    bool Figure::getPinned() const
     {
         return pinned;
     }
-    void Figure::set_pinned(bool pinstatus)
+    void Figure::setPinned(bool pinstatus)
     {
         pinned = pinstatus;
     }
-
 }

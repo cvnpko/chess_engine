@@ -7,7 +7,7 @@ int main()
 {
     gui::Window window(800, 800, "Chess Engine");
     engine::Board board;
-    gui::Board_Renderer boardRenderer(board);
+    gui::BoardRenderer boardRenderer(board);
     gui::EventHandler eventHandler(board, window);
 
     while (window.isOpen())

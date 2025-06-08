@@ -9,10 +9,10 @@
 
 namespace gui
 {
-    class Board_Renderer
+    class BoardRenderer
     {
     public:
-        Board_Renderer(const engine::Board &board);
+        BoardRenderer(const engine::Board &board);
         void draw(gui::Window &window);
 
     private:
@@ -24,4 +24,5 @@ namespace gui
         void drawPieces(gui::Window &window);
     };
 }
+
 #endif

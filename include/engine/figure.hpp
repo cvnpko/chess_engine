@@ -3,13 +3,13 @@
 
 namespace engine
 {
-    enum class Figure_color
+    enum class FigureColor
     {
         WHITE,
         BLACK,
         NONE
     };
-    enum class Figure_type
+    enum class FigureType
     {
         KING,
         QUEEN,
@@ -23,14 +23,15 @@ namespace engine
     {
     public:
         Figure();
-        Figure(Figure_type type, Figure_color color);
-        Figure_type get_type() const;
-        Figure_color get_color() const;
-        bool get_pinned() const;
-        void set_pinned(bool pin_status);
+        Figure(FigureType type, FigureColor color);
+        FigureType getType() const;
+        FigureColor getColor() const;
+        bool getPinned() const;
+        void setPinned(bool pinStatus);
+
     private:
-        Figure_type type;
-        Figure_color color;
+        FigureType type;
+        FigureColor color;
         bool pinned;
     };
 }
