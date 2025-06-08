@@ -17,6 +17,7 @@ namespace engine
         BoardSide getBoardSide() const;
         void setBoardSide(BoardSide newSide);
         void changeBoardSide() const;
+        const Figure (&getBoardGrid() const)[8][8];
 
     private:
         Figure boardGrid[8][8];

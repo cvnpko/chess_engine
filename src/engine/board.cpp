@@ -20,7 +20,7 @@ namespace engine
         boardGrid[0][4] = Figure(FigureType::KING, FigureColor::BLACK);
         boardGrid[0][3] = Figure(FigureType::QUEEN, FigureColor::BLACK);
         boardGrid[7][4] = Figure(FigureType::KING, FigureColor::WHITE);
-        boardGrid[7][3] = Figure(FigureType::QUEEN, FigureColor::BLACK);
+        boardGrid[7][3] = Figure(FigureType::QUEEN, FigureColor::WHITE);
         for (int i = 0; i < 8; i++)
         {
             boardGrid[1][i] = Figure(FigureType::PAWN, FigureColor::BLACK);
@@ -57,5 +57,9 @@ namespace engine
                 (Figure) boardGrid[7 - i][j] = tempFig;
             }
         }
+    }
+    const Figure (&Board::getBoardGrid() const)[8][8]
+    {
+        return boardGrid;
     }
 }
