@@ -119,8 +119,7 @@ namespace gui
                     float texHeight = static_cast<float>(texture->getSize().y);
                     float scaleX = squareSize / texWidth;
                     float scaleY = squareSize / texHeight;
-                    float scale = scaleY * 0.95f;
-                    sprite.setScale(scale, scale);
+                    sprite.setScale(scaleX, scaleY);
                     sprite.setOrigin(texWidth / 2.f, texHeight / 2.f);
                     sprite.setPosition(col * squareSize + squareSize / 2.f, row * squareSize + squareSize / 2.f);
                 }
