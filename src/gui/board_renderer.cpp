@@ -4,11 +4,15 @@
 namespace gui
 {
     BoardRenderer::BoardRenderer(const engine::Board &b)
-        : board(b)
+        : board(b), selected_col(-1), selected_row(-1), squareSize(100.0f)
     {
         if (!loadTextures())
         {
             valid = false;
+        }
+        else
+        {
+            valid = true;
         }
     }
     bool BoardRenderer::isValid() const

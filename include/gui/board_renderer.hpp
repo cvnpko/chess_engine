@@ -18,8 +18,9 @@ namespace gui
 
     private:
         const engine::Board &board;
-        float squareSize = 100.0f;
-        bool valid = true;
+        float squareSize;
+        bool valid;
+        int selected_row, selected_col;
         std::map<std::string, sf::Texture> pieceTextures;
         bool loadTextures();
         void drawSquares(gui::Window &window);
