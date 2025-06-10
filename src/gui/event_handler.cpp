@@ -35,17 +35,22 @@ namespace gui
 
     void EventHandler::handleClick(int x, int y)
     {
-        int col = x / squareSize;
         int row = y / squareSize;
-        if (row < 0 || row >= 8 || col < 0 || col >= 8)
+        int col = x / squareSize;
+        if (row < 0 || row > 7 || col < 0 || col > 7)
         {
+            if (pieceSelected)
+            {
+                pieceSelected = false;
+                board.getFigure(selectedRow, selectedCol).setSelected(false);
+            }
             return;
         }
-        const engine::Figure &clickedFigure = board.getBoardGrid()[row][col];
         if (!pieceSelected)
         {
-            if (clickedFigure.getType() != engine::FigureType::NONE)
+            if (board.getFigure(row, col).getColor() == board.getCurrentTurn())
             {
+                board.getFigure(row, col).setSelected(true);
                 selectedRow = row;
                 selectedCol = col;
                 pieceSelected = true;
@@ -53,11 +58,12 @@ namespace gui
         }
         else
         {
+            board.getFigure(selectedRow, selectedCol).setSelected(false);
+            pieceSelected = false;
             if (board.validMove(selectedRow, selectedCol, row, col))
             {
                 board.update(selectedRow, selectedCol, row, col);
             }
-            pieceSelected = false;
         }
     }
 }

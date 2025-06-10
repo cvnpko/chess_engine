@@ -12,15 +12,14 @@ namespace gui
     class BoardRenderer
     {
     public:
-        BoardRenderer(const engine::Board &board);
+        BoardRenderer(engine::Board &board);
         void draw(gui::Window &window);
         bool isValid() const;
 
     private:
-        const engine::Board &board;
+        engine::Board &board;
         float squareSize;
         bool valid;
-        int selected_row, selected_col;
         std::map<std::string, sf::Texture> pieceTextures;
         bool loadTextures();
         void drawSquares(gui::Window &window);

@@ -3,8 +3,8 @@
 
 namespace gui
 {
-    BoardRenderer::BoardRenderer(const engine::Board &b)
-        : board(b), selected_col(-1), selected_row(-1), squareSize(100.0f)
+    BoardRenderer::BoardRenderer(engine::Board &b)
+        : board(b), squareSize(100.0f)
     {
         if (!loadTextures())
         {
@@ -55,7 +55,14 @@ namespace gui
             for (int col = 0; col < 8; ++col)
             {
                 square.setPosition(col * squareSize, row * squareSize);
-                square.setFillColor(lightSquare ? sf::Color(240, 217, 181) : sf::Color(181, 136, 99));
+                if (!board.getFigure(row, col).getSelected())
+                {
+                    square.setFillColor(lightSquare ? sf::Color(240, 217, 181) : sf::Color(181, 136, 99));
+                }
+                else
+                {
+                    square.setFillColor(sf::Color(211, 177, 140));
+                }
                 window.draw(square);
                 lightSquare = !lightSquare;
             }
@@ -99,12 +106,11 @@ namespace gui
 
     void BoardRenderer::drawPieces(gui::Window &window)
     {
-        const engine::Figure(&grid)[8][8] = board.getBoardGrid();
         for (int row = 0; row < 8; ++row)
         {
             for (int col = 0; col < 8; ++col)
             {
-                const engine::Figure &figure = grid[row][col];
+                const engine::Figure &figure = board.getFigure(row, col);
                 std::string key = getTextureKey(figure);
                 if (key.empty())
                 {

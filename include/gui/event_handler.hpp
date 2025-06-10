@@ -3,6 +3,7 @@
 
 #include "engine/board.hpp"
 #include "gui/window.hpp"
+#include "gui/board_renderer.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace gui

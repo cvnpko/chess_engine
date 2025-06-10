@@ -2,9 +2,8 @@
 
 namespace engine
 {
-    Board::Board()
+    Board::Board() : boardSide(BoardSide::WHITE), currentTurn(FigureColor::WHITE)
     {
-        boardSide = BoardSide::WHITE;
         boardGrid[0][0] = Figure(FigureType::ROOK, FigureColor::BLACK);
         boardGrid[0][7] = Figure(FigureType::ROOK, FigureColor::BLACK);
         boardGrid[7][0] = Figure(FigureType::ROOK, FigureColor::WHITE);
@@ -38,6 +37,12 @@ namespace engine
     {
         return boardSide;
     }
+
+    FigureColor Board::getCurrentTurn() const
+    {
+        return currentTurn;
+    }
+
     void Board::setBoardSide(BoardSide newSide)
     {
         if (newSide != boardSide)
@@ -58,9 +63,9 @@ namespace engine
             }
         }
     }
-    const Figure (&Board::getBoardGrid() const)[8][8]
+    Figure &Board::getFigure(int x, int y)
     {
-        return boardGrid;
+        return boardGrid[x][y];
     }
     bool Board::validMove(int xStart, int yStart, int xEnd, int yEnd)
     {
@@ -70,5 +75,6 @@ namespace engine
     {
         boardGrid[xEnd][yEnd] = boardGrid[xStart][yStart];
         boardGrid[xStart][yStart] = Figure();
+        currentTurn = currentTurn == FigureColor::WHITE ? FigureColor::BLACK : FigureColor::WHITE;
     }
 }

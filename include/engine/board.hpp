@@ -15,15 +15,17 @@ namespace engine
     public:
         Board();
         BoardSide getBoardSide() const;
+        Figure &getFigure(int x, int y);
         void setBoardSide(BoardSide newSide);
         void changeBoardSide() const;
-        const Figure (&getBoardGrid() const)[8][8];
         bool validMove(int xStart, int yStart, int xEnd, int yEnd);
         void update(int xStart, int yStart, int xEnd, int yEnd);
+        FigureColor getCurrentTurn() const;
 
     private:
         Figure boardGrid[8][8];
         BoardSide boardSide;
+        FigureColor currentTurn;
     };
 }
 
