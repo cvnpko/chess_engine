@@ -2,14 +2,14 @@
 
 namespace engine
 {
-    Figure::Figure() : type(FigureType::NONE), color(FigureColor::NONE), pinned(false)
+    Figure::Figure()
+        : type(FigureType::NONE), color(FigureColor::NONE), isPinned(false),
+          isSelected(false)
     {
     }
     Figure::Figure(FigureType type, FigureColor color)
+        : type(type), color(color), isPinned(false), isSelected(false)
     {
-        this->type = type;
-        this->color = color;
-        pinned = false;
     }
     FigureType Figure::getType() const
     {
@@ -21,13 +21,21 @@ namespace engine
     }
     bool Figure::getPinned() const
     {
-        return pinned;
+        return isPinned;
     }
-    void Figure::setPinned(bool pinstatus)
+    void Figure::setPinned(bool pinStatus)
     {
-        pinned = pinstatus;
+        isPinned = pinStatus;
     }
-    bool Figure::validMove(int x_start, int y_start, int x_end, int y_end)
+    bool Figure::getSelected() const
+    {
+        return isSelected;
+    }
+    void Figure::setSelected(bool selectStatus)
+    {
+        isSelected = selectStatus;
+    }
+    bool Figure::validMove(int xStart, int yStart, int xEnd, int yEnd)
     {
         return true;
     }

@@ -27,13 +27,16 @@ namespace engine
         FigureType getType() const;
         FigureColor getColor() const;
         bool getPinned() const;
+        bool getSelected() const;
         void setPinned(bool pinStatus);
-        bool validMove(int x_start, int y_start, int x, int y);
+        void setSelected(bool selectStatus);
+        bool validMove(int xStart, int yStart, int xEnd, int yEnd);
 
     private:
         FigureType type;
         FigureColor color;
-        bool pinned;
+        bool isSelected;
+        bool isPinned;
     };
 }
 
