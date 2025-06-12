@@ -22,7 +22,7 @@ int main()
     {
         eventHandler.processEvents(settings);
         window.clear();
-        boardRenderer.draw(window);
+        boardRenderer.draw(window, settings);
     }
 
     return 0;
