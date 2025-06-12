@@ -20,7 +20,7 @@ int main()
 
     while (window.isOpen())
     {
-        eventHandler.processEvents();
+        eventHandler.processEvents(settings);
         window.clear();
         boardRenderer.draw(window);
     }

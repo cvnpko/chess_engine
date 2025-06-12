@@ -7,8 +7,8 @@ namespace conf
     {
     public:
         Settings();
-        float getSquareSize() const;
         std::string getTitle() const;
+        float getSquareSize() const;
         int getCurrentHeight() const;
         int getCurrentWidth() const;
         int getMinimumHeight() const;

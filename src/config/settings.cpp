@@ -7,6 +7,10 @@ namespace conf
                            minWidth(600), minHeight(600)
     {
     }
+    std::string Settings::getTitle() const
+    {
+        return title;
+    }
     float Settings::getSquareSize() const
     {
         return squareSize;

@@ -7,33 +7,36 @@ namespace gui
     {
     }
 
-    void EventHandler::processEvents()
+    void EventHandler::processEvents(conf::Settings &settings)
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            switch (event.type)
+            {
+            case sf::Event::Closed:
             {
                 window.close();
             }
-            else if (event.type == sf::Event::MouseButtonPressed)
+            case sf::Event::MouseButtonPressed:
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    handleClick(event.mouseButton.x, event.mouseButton.y);
+                    handleClick(event.mouseButton.x, event.mouseButton.y, settings.getSquareSize());
                 }
             }
-            else if (event.type == sf::Event::KeyPressed)
+            case sf::Event::KeyPressed:
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
                     window.close();
                 }
             }
+            }
         }
     }
 
-    void EventHandler::handleClick(int x, int y)
+    void EventHandler::handleClick(int x, int y, const unsigned int squareSize)
     {
         int row = y / squareSize;
         int col = x / squareSize;
