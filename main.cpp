@@ -23,6 +23,7 @@ int main()
         eventHandler.processEvents(settings);
         window.clear();
         boardRenderer.draw(window, settings);
+        window.display();
     }
 
     return 0;

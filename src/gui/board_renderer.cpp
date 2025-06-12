@@ -6,14 +6,7 @@ namespace gui
     BoardRenderer::BoardRenderer(engine::Board &b)
         : board(b)
     {
-        if (!loadTextures())
-        {
-            valid = false;
-        }
-        else
-        {
-            valid = true;
-        }
+        valid = loadTextures();
     }
     bool BoardRenderer::isValid() const
     {
@@ -42,7 +35,6 @@ namespace gui
     {
         drawSquares(window, settings.getSquareSize());
         drawPieces(window, settings.getSquareSize());
-        window.display();
     }
 
     void BoardRenderer::drawSquares(gui::Window &window, float squareSize)
