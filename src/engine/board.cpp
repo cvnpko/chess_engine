@@ -2,7 +2,8 @@
 
 namespace engine
 {
-    Board::Board() : boardSide(BoardSide::WHITE), currentTurn(FigureColor::WHITE)
+    Board::Board() : isSelected(false), boardSide(BoardSide::WHITE),
+                     currentTurn(FigureColor::WHITE)
     {
         boardGrid[0][0] = Figure(FigureType::ROOK, FigureColor::BLACK);
         boardGrid[0][7] = Figure(FigureType::ROOK, FigureColor::BLACK);
@@ -37,12 +38,22 @@ namespace engine
     {
         return boardSide;
     }
-
     FigureColor Board::getCurrentTurn() const
     {
         return currentTurn;
     }
-
+    bool Board::getIsSelected() const
+    {
+        return isSelected;
+    }
+    int Board::getSelectedRow() const
+    {
+        return selectedRow;
+    }
+    int Board::getSelectedCol() const
+    {
+        return selectedCol;
+    }
     void Board::setBoardSide(BoardSide newSide)
     {
         if (newSide != boardSide)
@@ -50,6 +61,25 @@ namespace engine
             Board::changeBoardSide();
             boardSide = newSide;
         }
+    }
+    void Board::deselect()
+    {
+        if (isSelected)
+        {
+            isSelected = false;
+            boardGrid[selectedRow][selectedCol].setSelected(false);
+        }
+    }
+    void Board::select(int x, int y)
+    {
+        if (isSelected)
+        {
+            boardGrid[selectedRow][selectedCol].setSelected(false);
+        }
+        isSelected = true;
+        boardGrid[x][y].setSelected(true);
+        selectedRow = x;
+        selectedCol = y;
     }
     void Board::changeBoardSide() const
     {

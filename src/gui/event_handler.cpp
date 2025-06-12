@@ -3,7 +3,7 @@
 namespace gui
 {
     EventHandler::EventHandler(engine::Board &b, gui::Window &w)
-        : board(b), window(w), pieceSelected(false)
+        : board(b), window(w)
     {
     }
 
@@ -36,36 +36,28 @@ namespace gui
         }
     }
 
-    void EventHandler::handleClick(int x, int y, const unsigned int squareSize)
+    void EventHandler::handleClick(const int x, const int y, const unsigned int squareSize)
     {
         int row = y / squareSize;
         int col = x / squareSize;
         if (row < 0 || row > 7 || col < 0 || col > 7)
         {
-            if (pieceSelected)
-            {
-                pieceSelected = false;
-                board.getFigure(selectedRow, selectedCol).setSelected(false);
-            }
+            board.deselect();
             return;
         }
-        if (!pieceSelected)
+        if (board.getIsSelected())
         {
-            if (board.getFigure(row, col).getColor() == board.getCurrentTurn())
+            board.deselect();
+            if (board.validMove(board.getSelectedRow(), board.getSelectedCol(), row, col))
             {
-                board.getFigure(row, col).setSelected(true);
-                selectedRow = row;
-                selectedCol = col;
-                pieceSelected = true;
+                board.update(board.getSelectedRow(), board.getSelectedCol(), row, col);
             }
         }
         else
         {
-            board.getFigure(selectedRow, selectedCol).setSelected(false);
-            pieceSelected = false;
-            if (board.validMove(selectedRow, selectedCol, row, col))
+            if (board.getFigure(row, col).getColor() == board.getCurrentTurn())
             {
-                board.update(selectedRow, selectedCol, row, col);
+                board.select(row, col);
             }
         }
     }

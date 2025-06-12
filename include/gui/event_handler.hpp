@@ -18,8 +18,6 @@ namespace gui
     private:
         engine::Board &board;
         gui::Window &window;
-        bool pieceSelected = false;
-        int selectedRow, selectedCol;
         sf::Vector2i selectedSquare;
         void handleEvent(const sf::Event &event);
         void handleClick(int x, int y, unsigned int squareSize);
