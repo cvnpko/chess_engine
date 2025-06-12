@@ -11,12 +11,10 @@ namespace conf
         float getSquareSize() const;
         int getCurrentHeight() const;
         int getCurrentWidth() const;
-        int getMinimumHeight() const;
-        int getMinimumWidth() const;
 
     private:
         float squareSize;
-        unsigned int curWidth, curHeight, minWidth, minHeight;
+        unsigned int curWidth, curHeight;
         std::string title;
     };
 }

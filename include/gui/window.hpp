@@ -18,7 +18,7 @@ namespace gui
         void close();
         void draw(const sf::Drawable &drawable);
         sf::Vector2i getMousePosition() const;
-        sf::RenderWindow &getRawWindow();
+        void getSize(unsigned &width, unsigned &height);
 
     private:
         sf::RenderWindow window;

@@ -17,7 +17,6 @@ namespace gui
         const std::vector<std::string> pieces = {
             "wp", "wr", "wn", "wb", "wq", "wk",
             "bp", "br", "bn", "bb", "bq", "bk"};
-
         for (const auto &key : pieces)
         {
             sf::Texture texture;

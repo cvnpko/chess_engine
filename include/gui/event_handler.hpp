@@ -21,6 +21,7 @@ namespace gui
         sf::Vector2i selectedSquare;
         void handleEvent(const sf::Event &event);
         void handleClick(int x, int y, unsigned int squareSize);
+        void handleResize(unsigned width, unsigned height, conf::Settings &settings);
         sf::Vector2i getBoardCoordinates(int x, int y) const;
     };
 }

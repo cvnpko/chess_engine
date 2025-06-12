@@ -3,9 +3,16 @@
 namespace gui
 {
     Window::Window(conf::Settings &settings)
-        : window(sf::VideoMode(settings.getCurrentWidth(), settings.getCurrentHeight()), settings.getTitle())
+        : window(sf::VideoMode(settings.getCurrentWidth(), settings.getCurrentHeight()),
+                 settings.getTitle(), sf::Style::Titlebar | sf::Style::Close)
     {
+        window.setVerticalSyncEnabled(true);
         window.setFramerateLimit(60);
+    }
+    void Window::getSize(unsigned &width, unsigned &height)
+    {
+        sf::Vector2u currentSize = window.getSize();
+        width = currentSize.x, height = currentSize.y;
     }
     bool Window::isOpen() const
     {

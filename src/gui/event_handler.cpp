@@ -18,6 +18,7 @@ namespace gui
             {
                 window.close();
             }
+            break;
             case sf::Event::MouseButtonPressed:
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
@@ -25,6 +26,7 @@ namespace gui
                     handleClick(event.mouseButton.x, event.mouseButton.y, settings.getSquareSize());
                 }
             }
+            break;
             case sf::Event::KeyPressed:
             {
                 if (event.key.code == sf::Keyboard::Escape)
@@ -32,6 +34,7 @@ namespace gui
                     window.close();
                 }
             }
+            break;
             }
         }
     }

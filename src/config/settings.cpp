@@ -3,8 +3,7 @@
 namespace conf
 {
     Settings::Settings() : title("Chess Engine"), squareSize(100.0f),
-                           curWidth(800), curHeight(800),
-                           minWidth(600), minHeight(600)
+                           curWidth(800), curHeight(800)
     {
     }
     std::string Settings::getTitle() const
@@ -22,13 +21,5 @@ namespace conf
     int Settings::getCurrentWidth() const
     {
         return curWidth;
-    }
-    int Settings::getMinimumHeight() const
-    {
-        return minHeight;
-    }
-    int Settings::getMinimumWidth() const
-    {
-        return minWidth;
     }
 }
