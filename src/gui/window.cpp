@@ -2,8 +2,8 @@
 
 namespace gui
 {
-    Window::Window(unsigned int width, unsigned int height, const std::string &title)
-        : window(sf::VideoMode(width, height), title)
+    Window::Window(conf::Settings &settings)
+        : window(sf::VideoMode(settings.getCurrentWidth(), settings.getCurrentHeight()), settings.getTitle())
     {
         window.setFramerateLimit(60);
     }

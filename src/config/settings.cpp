@@ -2,7 +2,9 @@
 
 namespace conf
 {
-    Settings::Settings() : squareSize(100.0f), curWidth(800), curHeight(800), minWidth(600), minHeight(600)
+    Settings::Settings() : title("Chess Engine"), squareSize(100.0f),
+                           curWidth(800), curHeight(800),
+                           minWidth(600), minHeight(600)
     {
     }
     float Settings::getSquareSize() const

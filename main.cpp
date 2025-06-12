@@ -1,11 +1,14 @@
+#include "config/settings.hpp"
 #include "gui/window.hpp"
 #include "gui/board_renderer.hpp"
 #include "gui/event_handler.hpp"
 #include "engine/board.hpp"
 #include <iostream>
+
 int main()
 {
-    gui::Window window(800, 800, "Chess Engine");
+    conf::Settings settings;
+    gui::Window window(settings);
     engine::Board board;
     gui::BoardRenderer boardRenderer(board);
     if (!boardRenderer.isValid())

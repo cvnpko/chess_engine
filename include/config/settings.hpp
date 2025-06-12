@@ -1,6 +1,6 @@
 #ifndef CONFIG_SETTINGS_HPP
 #define CONFIG_SETTINGS_HPP
-
+#include <string>
 namespace conf
 {
     class Settings
@@ -8,6 +8,7 @@ namespace conf
     public:
         Settings();
         float getSquareSize() const;
+        std::string getTitle() const;
         int getCurrentHeight() const;
         int getCurrentWidth() const;
         int getMinimumHeight() const;
@@ -15,7 +16,8 @@ namespace conf
 
     private:
         float squareSize;
-        int curWidth, curHeight, minWidth, minHeight;
+        unsigned int curWidth, curHeight, minWidth, minHeight;
+        std::string title;
     };
 }
 
