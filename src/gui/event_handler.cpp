@@ -3,66 +3,64 @@
 namespace gui
 {
     EventHandler::EventHandler(engine::Board &b, gui::Window &w)
-        : board(b), window(w), pieceSelected(false)
+        : board(b), window(w)
     {
     }
 
-    void EventHandler::processEvents()
+    void EventHandler::processEvents(conf::Settings &settings)
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            switch (event.type)
+            {
+            case sf::Event::Closed:
             {
                 window.close();
             }
-            else if (event.type == sf::Event::MouseButtonPressed)
+            break;
+            case sf::Event::MouseButtonPressed:
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    handleClick(event.mouseButton.x, event.mouseButton.y);
+                    handleClick(event.mouseButton.x, event.mouseButton.y, settings.getSquareSize());
                 }
             }
-            else if (event.type == sf::Event::KeyPressed)
+            break;
+            case sf::Event::KeyPressed:
             {
                 if (event.key.code == sf::Keyboard::Escape)
                 {
                     window.close();
                 }
             }
+            break;
+            }
         }
     }
 
-    void EventHandler::handleClick(int x, int y)
+    void EventHandler::handleClick(const int x, const int y, const unsigned int squareSize)
     {
         int row = y / squareSize;
         int col = x / squareSize;
         if (row < 0 || row > 7 || col < 0 || col > 7)
         {
-            if (pieceSelected)
-            {
-                pieceSelected = false;
-                board.getFigure(selectedRow, selectedCol).setSelected(false);
-            }
+            board.deselect();
             return;
         }
-        if (!pieceSelected)
+        if (board.getIsSelected())
         {
-            if (board.getFigure(row, col).getColor() == board.getCurrentTurn())
+            board.deselect();
+            if (board.validMove(board.getSelectedRow(), board.getSelectedCol(), row, col))
             {
-                board.getFigure(row, col).setSelected(true);
-                selectedRow = row;
-                selectedCol = col;
-                pieceSelected = true;
+                board.update(board.getSelectedRow(), board.getSelectedCol(), row, col);
             }
         }
         else
         {
-            board.getFigure(selectedRow, selectedCol).setSelected(false);
-            pieceSelected = false;
-            if (board.validMove(selectedRow, selectedCol, row, col))
+            if (board.getFigure(row, col).getColor() == board.getCurrentTurn())
             {
-                board.update(selectedRow, selectedCol, row, col);
+                board.select(row, col);
             }
         }
     }

@@ -4,16 +4,9 @@
 namespace gui
 {
     BoardRenderer::BoardRenderer(engine::Board &b)
-        : board(b), squareSize(100.0f)
+        : board(b)
     {
-        if (!loadTextures())
-        {
-            valid = false;
-        }
-        else
-        {
-            valid = true;
-        }
+        valid = loadTextures();
     }
     bool BoardRenderer::isValid() const
     {
@@ -24,7 +17,6 @@ namespace gui
         const std::vector<std::string> pieces = {
             "wp", "wr", "wn", "wb", "wq", "wk",
             "bp", "br", "bn", "bb", "bq", "bk"};
-
         for (const auto &key : pieces)
         {
             sf::Texture texture;
@@ -38,14 +30,13 @@ namespace gui
         return true;
     }
 
-    void BoardRenderer::draw(gui::Window &window)
+    void BoardRenderer::draw(gui::Window &window, conf::Settings &settings)
     {
-        drawSquares(window);
-        drawPieces(window);
-        window.display();
+        drawSquares(window, settings.getSquareSize());
+        drawPieces(window, settings.getSquareSize());
     }
 
-    void BoardRenderer::drawSquares(gui::Window &window)
+    void BoardRenderer::drawSquares(gui::Window &window, float squareSize)
     {
         sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
         bool lightSquare = true;
@@ -104,7 +95,7 @@ namespace gui
         return key;
     }
 
-    void BoardRenderer::drawPieces(gui::Window &window)
+    void BoardRenderer::drawPieces(gui::Window &window, float squareSize)
     {
         for (int row = 0; row < 8; ++row)
         {

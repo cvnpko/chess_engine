@@ -4,6 +4,7 @@
 #include "engine/board.hpp"
 #include "gui/window.hpp"
 #include "gui/board_renderer.hpp"
+#include "config/settings.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace gui
@@ -12,17 +13,15 @@ namespace gui
     {
     public:
         EventHandler(engine::Board &board, gui::Window &window);
-        void processEvents();
+        void processEvents(conf::Settings &settings);
 
     private:
         engine::Board &board;
         gui::Window &window;
-        float squareSize = 100.0f;
-        bool pieceSelected = false;
-        int selectedRow, selectedCol;
         sf::Vector2i selectedSquare;
         void handleEvent(const sf::Event &event);
-        void handleClick(int x, int y);
+        void handleClick(int x, int y, unsigned int squareSize);
+        void handleResize(unsigned width, unsigned height, conf::Settings &settings);
         sf::Vector2i getBoardCoordinates(int x, int y) const;
     };
 }

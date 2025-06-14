@@ -1,3 +1,4 @@
+#include "config/settings.hpp"
 #include "gui/window.hpp"
 #include "gui/board_renderer.hpp"
 #include "gui/event_handler.hpp"
@@ -7,6 +8,7 @@
 
 int main()
 {
+    conf::Settings settings;
     gui::ColorSelector colorSelector;
     gui::SelectColor select;
     if ((select = colorSelector.run()) == gui::SelectColor::NONE)
@@ -14,7 +16,7 @@ int main()
         std::cerr << "Failed to select a color.\n";
         return 1;
     }
-    gui::Window window(800, 800, "Chess Engine");
+    gui::Window window(settings);
     engine::Board board;
     if (select == gui::SelectColor::BLACK)
     {
@@ -30,9 +32,10 @@ int main()
 
     while (window.isOpen())
     {
-        eventHandler.processEvents();
+        eventHandler.processEvents(settings);
         window.clear();
-        boardRenderer.draw(window);
+        boardRenderer.draw(window, settings);
+        window.display();
     }
 
     return 0;
