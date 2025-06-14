@@ -51,15 +51,15 @@ namespace engine
             boardSide = newSide;
         }
     }
-    void Board::changeBoardSide() const
+    void Board::changeBoardSide()
     {
         for (int i = 0; i < 4; i++)
         {
             for (int j = 0; j < 8; j++)
             {
                 Figure tempFig = boardGrid[i][j];
-                (Figure) boardGrid[i][j] = boardGrid[7 - i][j];
-                (Figure) boardGrid[7 - i][j] = tempFig;
+                boardGrid[i][j] = boardGrid[7 - i][j];
+                boardGrid[7 - i][j] = tempFig;
             }
         }
     }

@@ -17,7 +17,7 @@ namespace engine
         BoardSide getBoardSide() const;
         Figure &getFigure(int x, int y);
         void setBoardSide(BoardSide newSide);
-        void changeBoardSide() const;
+        void changeBoardSide();
         bool validMove(int xStart, int yStart, int xEnd, int yEnd);
         void update(int xStart, int yStart, int xEnd, int yEnd);
         FigureColor getCurrentTurn() const;
