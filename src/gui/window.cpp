@@ -31,4 +31,9 @@ namespace gui
     {
         window.draw(drawable);
     }
+    sf::Vector2i Window::getMousePosition() const
+    {
+        return sf::Mouse::getPosition(window);
+    }
+
 }
