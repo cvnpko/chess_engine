@@ -2,7 +2,7 @@
 
 namespace gui
 {
-    ColorSelector::ColorSelector() : window(400, 200, "Select a color") {}
+    ColorSelector::ColorSelector(conf::Settings settings) : window(settings) {}
     SelectColor ColorSelector::run()
     {
         SelectColor select = NONE;
@@ -27,32 +27,32 @@ namespace gui
     {
         text.setFont(font);
         text.setString("Select a color:");
-        text.setCharacterSize(24);
-        text.setPosition(120, 20);
+        text.setCharacterSize(80);
+        text.setPosition(400 - text.getLocalBounds().width / 2, 100);
 
-        buttonWhite.setSize({100, 50});
-        buttonWhite.setPosition(50, 100);
+        buttonWhite.setSize({400, 200});
+        buttonWhite.setPosition(400 - buttonWhite.getLocalBounds().width / 2, 500);
         buttonWhite.setFillColor(sf::Color::White);
         buttonWhite.setOutlineColor(sf::Color::Black);
         buttonWhite.setOutlineThickness(2);
 
         textWhite.setFont(font);
         textWhite.setString("White");
-        textWhite.setCharacterSize(20);
+        textWhite.setCharacterSize(70);
         textWhite.setFillColor(sf::Color::Black);
-        textWhite.setPosition(75, 110);
+        textWhite.setPosition(400 - textWhite.getLocalBounds().width / 2, 550);
 
-        buttonBlack.setSize({100, 50});
-        buttonBlack.setPosition(250, 100);
+        buttonBlack.setSize({400, 200});
+        buttonBlack.setPosition(400 - buttonBlack.getLocalBounds().width / 2, 250);
         buttonBlack.setFillColor(sf::Color::Black);
         buttonBlack.setOutlineColor(sf::Color::White);
         buttonBlack.setOutlineThickness(2);
 
         textBlack.setFont(font);
         textBlack.setString("Black");
-        textBlack.setCharacterSize(20);
+        textBlack.setCharacterSize(70);
         textBlack.setFillColor(sf::Color::White);
-        textBlack.setPosition(275, 110);
+        textBlack.setPosition(400 - textBlack.getLocalBounds().width / 2, 300);
     }
 
     void ColorSelector::handleEvents(SelectColor &val)

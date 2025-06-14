@@ -9,9 +9,9 @@
 int main()
 {
     conf::Settings settings;
-    gui::ColorSelector colorSelector;
-    gui::SelectColor select;
-    if ((select = colorSelector.run()) == gui::SelectColor::NONE)
+    gui::ColorSelector colorSelector(settings);
+    gui::SelectColor select = colorSelector.run();
+    if (select == gui::SelectColor::NONE)
     {
         std::cerr << "Failed to select a color.\n";
         return 1;

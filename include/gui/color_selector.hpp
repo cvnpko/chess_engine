@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "gui/window.hpp"
+#include "config/settings.hpp"
 
 namespace gui
 {
@@ -15,7 +16,7 @@ namespace gui
     class ColorSelector
     {
     public:
-        ColorSelector();
+        ColorSelector(conf::Settings settings);
         SelectColor run();
 
     private:
