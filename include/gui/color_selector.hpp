@@ -2,14 +2,21 @@
 #define COLOR_SELECTOR_HPP
 
 #include <SFML/Graphics.hpp>
-#include <window.hpp>
+#include "gui/window.hpp"
 
 namespace gui
 {
+    enum SelectColor
+    {
+        NONE,
+        WHITE,
+        BLACK
+    };
     class ColorSelector
     {
     public:
-        int run();
+        ColorSelector();
+        SelectColor run();
 
     private:
         gui::Window window;
@@ -18,7 +25,7 @@ namespace gui
         sf::RectangleShape buttonWhite, buttonBlack;
         sf::Text textWhite, textBlack;
 
-        void handleEvents(int &val);
+        void handleEvents(SelectColor &val);
         void render();
         void setup();
     };
