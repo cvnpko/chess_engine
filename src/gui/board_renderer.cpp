@@ -20,7 +20,8 @@ namespace gui
         for (const auto &key : pieces)
         {
             sf::Texture texture;
-            std::string path = "assets/images/chess_sets/default/" + key + ".png";
+            //std::string path = "assets/images/chess_sets/default/" + key + ".png";
+            std::string path = "D:\\Projects\\GitHub\\chess_engine\\assets\\images\\chess_sets\\default\\" + key + ".png";
             if (!texture.loadFromFile(path))
             {
                 return false;

@@ -6,7 +6,8 @@ namespace gui
     SelectColor ColorSelector::run()
     {
         SelectColor select = NONE;
-        if (!font.loadFromFile("assets/fonts/arial.ttf"))
+        //if (!font.loadFromFile("assets/fonts/arial.ttf"))
+        if(!font.loadFromFile("D:\\Projects\\GitHub\\chess_engine\\assets\\fonts\\arial.ttf"))
         {
             return select;
         }

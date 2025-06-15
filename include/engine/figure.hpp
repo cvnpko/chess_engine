@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <utility>
-
+#include <iostream>
 namespace engine
 {
     enum class FigureColor
@@ -37,8 +37,11 @@ namespace engine
         void resetValidMoves();
         void setMoved();
         bool getMoved();
-        
+
+        bool validMove(std::pair<int, int> newMove);
+        void printValidMoves();
         int getFigureValue();
+        
     private:
         std::vector<std::pair<int, int>> validMoves;
         FigureType type;

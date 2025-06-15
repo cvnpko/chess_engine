@@ -54,6 +54,7 @@ namespace gui
             if (board.validMove(board.getSelectedRow(), board.getSelectedCol(), row, col))
             {
                 board.update(board.getSelectedRow(), board.getSelectedCol(), row, col);
+                board.updateAttackBoard();
             }
         }
         else

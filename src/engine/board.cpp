@@ -1,4 +1,5 @@
 #include "engine/board.hpp"
+#include <iostream>
 #define fi first
 #define se second
 namespace engine
@@ -34,6 +35,8 @@ namespace engine
                 boardGrid[i][j] = Figure();
             }
         }
+        createAttackBoard();
+        updateAttackBoard();
     }
     BoardSide Board::getBoardSide() const
     {
@@ -101,7 +104,9 @@ namespace engine
 
     bool Board::validMove(int xStart, int yStart, int xEnd, int yEnd)
     {
-        return boardGrid[xStart][yStart].validMove(xStart, yStart, xEnd, yEnd);
+        std::pair<int, int> newMove = std::make_pair(xEnd, yEnd);
+        return boardGrid[xStart][yStart].validMove(newMove);
+        //return boardGrid[xStart][yStart].validMove(xStart, yStart, xEnd, yEnd);
     }
     void Board::update(int xStart, int yStart, int xEnd, int yEnd)
     {
@@ -154,12 +159,12 @@ namespace engine
         FigureColor enemyColor = kingColor == FigureColor::WHITE ? FigureColor::BLACK : FigureColor::WHITE;
         bool foundPinnable = false;
         std::pair<int, int> pinnablePos;
-        while(i < 8 && i >= 0 && j < 8 && j >= 0)
+        while(i + vi< 8 && i + vi >= 0 && j + vj < 8 && j + vj>= 0)
         {
             i += vi;
             j += vj;
 
-            Figure curr = (Figure)board[i][j];
+            Figure curr = board[i][j];
             if(curr.getColor() == FigureColor::NONE) continue;
             else if(curr.getColor() == kingColor)
             {
@@ -245,47 +250,58 @@ namespace engine
     }
 
 
-    static void moveUntilFigure(int i, int j, int vi, int vj, Figure figure, Figure (&board)[8][8], AttackField (&attackBoard)[8][8])
+    static void moveUntilFigure(int i, int j, int vi, int vj, Figure *figure, Figure (&board)[8][8], AttackField (&attackBoard)[8][8])
     {
         while(i < 7 && i > 0  && j < 7 && j > 0 && board[i + vi][j + vj].getColor() != FigureColor::NONE)
         {
             i += vi; j += vj;
-            attackBoard[i][j].upCount(figure.getColor());
-            attackBoard[i][j].addMat(figure);
-            figure.pushValidMove(std::make_pair(i, j));
+            attackBoard[i][j].upCount((*figure).getColor());
+            attackBoard[i][j].addMat((*figure));
+            (*figure).pushValidMove(std::make_pair(i, j));
         }
 
         if(i < 8 && i >= 0 && j < 8 && j >= 0)
         {
-            attackBoard[i][j].upCount(figure.getColor());
-            attackBoard[i][j].addMat(figure);
+            attackBoard[i][j].upCount((*figure).getColor());
+            attackBoard[i][j].addMat((*figure));
         }
     }
 
-    static void knightMove(int i, int j, int vi, int vj, Figure figure, Figure (&board)[8][8], AttackField (&attackBoard)[8][8])
+    static void knightMove(int i, int j, int vi, int vj, Figure *figure, Figure (&board)[8][8], AttackField (&attackBoard)[8][8])
     {
         if(i + vi < 8 && i + vi >= 0  && j + vj < 8 && j + vj >= 0 )
         {
             i += vi; j += vj;
-            attackBoard[i][j].upCount(figure.getColor());
-            attackBoard[i][j].addMat(figure);
-            if(board[i][j].getColor() != figure.getColor())
-                figure.pushValidMove(std::make_pair(i, j));
+            attackBoard[i][j].upCount((*figure).getColor());
+            attackBoard[i][j].addMat((*figure));
+            if(board[i][j].getColor() != (*figure).getColor())
+                (*figure).pushValidMove(std::make_pair(i, j));
         }
     }
 
     void Board::updateAttackBoard()
     {
+        std::cout << "hiiii";
         //set pins
         setPins(whiteKingPos, FigureColor::WHITE, boardGrid, attackBoard);
         setPins(blackKingPos, FigureColor::BLACK, boardGrid, attackBoard);
+        
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if(attackBoard[i][j].getPinned()) std::cout<< "1 ";
+                else std::cout << "0 ";
+            }
+            std::cout <<'\n';
+        }
 
         //
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
-                Figure curr = (Figure)boardGrid[i][j];
+                Figure curr = boardGrid[i][j];
                 curr.resetValidMoves();
                 FigureColor currcol = curr.getColor();
                 switch (curr.getType())
@@ -399,22 +415,22 @@ namespace engine
                             
                             if(direction.fi == 0 || direction.se == 0)
                             {
-                                moveUntilFigure(i, j, direction.fi, direction.se, curr, boardGrid, attackBoard);
+                                moveUntilFigure(i, j, direction.fi, direction.se, &curr, boardGrid, attackBoard);
                             }
                         }
                         else
                         {
                             //upwards
-                            moveUntilFigure(i, j, -1, 0, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, 0, &curr, boardGrid, attackBoard);
                             
                             //downwards
-                            moveUntilFigure(i, j, 1, 0, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 1, 0, &curr, boardGrid, attackBoard);
                             
                             //left
-                            moveUntilFigure(i, j, 0, -1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 0, -1, &curr, boardGrid, attackBoard);
                             
                             //right
-                            moveUntilFigure(i, j, 0, 1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 0, 1, &curr, boardGrid, attackBoard);
                         }
                         break;
                     }
@@ -423,14 +439,14 @@ namespace engine
                         //a knight cannot ever move while pinned
                         if(!attackBoard[i][j].getPinned())
                         {
-                            knightMove(i, j, -2, -1, curr, boardGrid, attackBoard);
-                            knightMove(i, j, -2, 1, curr, boardGrid, attackBoard);
-                            knightMove(i, j, 2, -1, curr, boardGrid, attackBoard);
-                            knightMove(i, j, 2, 1, curr, boardGrid, attackBoard);
-                            knightMove(i, j, 1, -2, curr, boardGrid, attackBoard);
-                            knightMove(i, j, -1, -2, curr, boardGrid, attackBoard);
-                            knightMove(i, j, 1, 2, curr, boardGrid, attackBoard);
-                            knightMove(i, j, -1, 2, curr, boardGrid, attackBoard);
+                            knightMove(i, j, -2, -1, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, -2, 1, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, 2, -1, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, 2, 1, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, 1, -2, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, -1, -2, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, 1, 2, &curr, boardGrid, attackBoard);
+                            knightMove(i, j, -1, 2, &curr, boardGrid, attackBoard);
                         }
                         break;
                     }
@@ -447,7 +463,7 @@ namespace engine
                             //if pinned horizontally or vertically, a bishop cannot move
                             if(direction.fi != 0 && direction.se != 0)
                             {
-                                moveUntilFigure(i, j, direction.fi, direction.se, curr, boardGrid, attackBoard);
+                                moveUntilFigure(i, j, direction.fi, direction.se, &curr, boardGrid, attackBoard);
                             } 
                             
                         }
@@ -455,16 +471,16 @@ namespace engine
                         {
                             
                             //up left
-                            moveUntilFigure(i, j, -1, -1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, -1, &curr, boardGrid, attackBoard);
                             
                             //up right
-                            moveUntilFigure(i, j, -1, 1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, 1, &curr, boardGrid, attackBoard);
                             
                             //down left
-                            moveUntilFigure(i, j, 1, -1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 1, -1, &curr, boardGrid, attackBoard);
                             
                             //dwon right
-                            moveUntilFigure(i, j, -1, 1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, 1, &curr, boardGrid, attackBoard);
                         }
                         break;
                     }
@@ -480,33 +496,33 @@ namespace engine
                             }
                             else direction = pinDirection(blackKingPos, std::make_pair(i, j));
                             //if pinned a queen can always take the pinning piece
-                            moveUntilFigure(i, j, direction.fi, direction.se, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, direction.fi, direction.se, &curr, boardGrid, attackBoard);
                             
                         }
                         else
                         {
                             //upwards
-                            moveUntilFigure(i, j, -1, 0, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, 0, &curr, boardGrid, attackBoard);
                             
                             //downwards
-                            moveUntilFigure(i, j, 1, 0, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 1, 0, &curr, boardGrid, attackBoard);
                             
                             //left
-                            moveUntilFigure(i, j, 0, -1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 0, -1, &curr, boardGrid, attackBoard);
                             
                             //right
-                            moveUntilFigure(i, j, 0, 1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 0, 1, &curr, boardGrid, attackBoard);
                             //up left
-                            moveUntilFigure(i, j, -1, -1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, -1, &curr, boardGrid, attackBoard);
                             
                             //up right
-                            moveUntilFigure(i, j, -1, 1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, 1, &curr, boardGrid, attackBoard);
                             
                             //down left
-                            moveUntilFigure(i, j, 1, -1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, 1, -1, &curr, boardGrid, attackBoard);
                             
                             //dwon right
-                            moveUntilFigure(i, j, -1, 1, curr, boardGrid, attackBoard);
+                            moveUntilFigure(i, j, -1, 1, &curr, boardGrid, attackBoard);
                         }
                         break;
                     }
@@ -518,13 +534,16 @@ namespace engine
                     {
 
                     }
-
+                    
                 }
-
+                boardGrid[i][j] = curr;
+                curr.printValidMoves();
             }
         }
+        
+         
+    
     }
-
 
     int Board::getControl(FigureColor color)
     {

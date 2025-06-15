@@ -1,5 +1,7 @@
 #include "engine/figure.hpp"
 
+#define fi first
+#define se second
 namespace engine
 {
     Figure::Figure()
@@ -26,12 +28,22 @@ namespace engine
     void Figure::setSelected(bool selectStatus)
     {
         isSelected = selectStatus;
-    }
+    }/*
     bool Figure::validMove(int xStart, int yStart, int xEnd, int yEnd)
     {
         return true;
     }
-
+*/
+    void Figure::printValidMoves()
+    {
+        int n = validMoves.size();
+        std::cout << getFigureValue() <<'\n';
+        for(int i = 0; i < n; i++)
+        {
+            std::cout << "[" << validMoves[i].fi << " " << validMoves[i].se << "]\t";
+        }
+        std::cout << '\n';
+    }
     int Figure::getFigureValue()
     {
         switch (type)
@@ -85,6 +97,20 @@ namespace engine
     void Figure::setMoved()
     {
         moved = true;;
+    }
+
+    bool Figure::validMove(std::pair<int, int> newMove)
+    {
+        int n = validMoves.size();
+        std::cout << n;
+        for(int i = 0; i < n; i++)
+        {
+            std::cout << validMoves[i].fi << " " << validMoves[i].se << " " << newMove.fi << " " << newMove.se << '\n';
+            if(validMoves[i].fi == newMove.fi && validMoves[i].se == newMove.se)
+                return true;
+            
+        }
+        return false;
     }
 
 }
