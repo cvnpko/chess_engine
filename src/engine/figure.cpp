@@ -60,7 +60,7 @@ namespace engine
             {
                 return 1;
             }
-            case FigureType::NONE:
+            default:
             {
                 return 0;
             }

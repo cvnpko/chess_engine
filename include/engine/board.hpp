@@ -33,7 +33,6 @@ namespace engine
         void updateAttackBoard();
         int getControl(FigureColor color); 
 
-
     private:
         Figure boardGrid[8][8];
         BoardSide boardSide;
