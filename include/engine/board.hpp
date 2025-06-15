@@ -2,7 +2,7 @@
 #define ENGINE_TABLE_HPP
 
 #include "engine/figure.hpp"
-
+#include "engine/attack_field.hpp"
 namespace engine
 {
     enum class BoardSide
@@ -27,12 +27,31 @@ namespace engine
         void select(const int x, const int y);
         FigureColor getCurrentTurn() const;
 
+        std::pair<int, int> getEp(); 
+        FigureColor getEpColor();
+        void setEp(std::pair<int, int> newEp, FigureColor figure);
+        void updateAttackBoard();
+        int getControl(FigureColor color); 
+
+
     private:
         Figure boardGrid[8][8];
         BoardSide boardSide;
         FigureColor currentTurn;
         int selectedRow, selectedCol;
         bool isSelected;
+
+        std::pair<int, int> ep;
+        FigureColor epcolor;
+
+        AttackField attackBoard[8][8];
+        int whiteFieldControl;
+        int blackFieldControl;
+        
+        std::pair<int, int> whiteKingPos;
+        std::pair<int, int> blackKingPos;  
+
+        void createAttackBoard();
     };
 }
 
