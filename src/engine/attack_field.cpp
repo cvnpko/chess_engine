@@ -66,9 +66,9 @@ namespace engine
         {
             return pinned;
         }
-        void AttackField::setPinned()
+        void AttackField::setPinned(bool pin)
         {
-            pinned= true;
+            pinned= pin;
         }
 
 }

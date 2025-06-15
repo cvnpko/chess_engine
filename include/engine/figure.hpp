@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include <iostream>
+#include <string>
 namespace engine
 {
     enum class FigureColor
@@ -21,6 +22,7 @@ namespace engine
         BISHOP,
         PAWN,
         NONE
+
     };
     class Figure
     {
@@ -40,8 +42,11 @@ namespace engine
 
         bool validMove(std::pair<int, int> newMove);
         void printValidMoves();
-        int getFigureValue();
         
+        int getFigureValue();
+        std::string getFigureName();
+        std::string getColorName();
+
     private:
         std::vector<std::pair<int, int>> validMoves;
         FigureType type;

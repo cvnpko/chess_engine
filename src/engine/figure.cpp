@@ -37,12 +37,12 @@ namespace engine
     void Figure::printValidMoves()
     {
         int n = validMoves.size();
-        std::cout << getFigureValue() <<'\n';
+        std::cout << getColorName() << " " << getFigureName() <<'\n';
         for(int i = 0; i < n; i++)
         {
             std::cout << "[" << validMoves[i].fi << " " << validMoves[i].se << "]\t";
         }
-        std::cout << '\n';
+        std::cout << "\n----------------------------------------\n";
     }
     int Figure::getFigureValue()
     {
@@ -102,15 +102,55 @@ namespace engine
     bool Figure::validMove(std::pair<int, int> newMove)
     {
         int n = validMoves.size();
-        std::cout << n;
         for(int i = 0; i < n; i++)
         {
-            std::cout << validMoves[i].fi << " " << validMoves[i].se << " " << newMove.fi << " " << newMove.se << '\n';
             if(validMoves[i].fi == newMove.fi && validMoves[i].se == newMove.se)
                 return true;
             
         }
         return false;
+    }
+    std::string Figure::getFigureName()
+    {
+        switch (type)
+        {
+            case FigureType::KING:
+            {
+                return "King"; //subject to change just some random value
+            }
+            case FigureType::QUEEN:
+            {
+                return "Queen";
+            }
+            case FigureType::ROOK:
+            {
+                return "Rook";
+            }
+            case FigureType::BISHOP:
+            {
+                return "Bishop";
+            }
+            case FigureType::KNIGHT:
+            {
+                return "Knight";
+            }
+            case FigureType::PAWN:
+            {
+                return "Pawn";
+            }
+            default:
+            {
+                return "Empty";
+            }
+        }
+    }
+    std::string Figure::getColorName()
+    {
+        if(color == FigureColor::WHITE)
+            return "White";
+        else if(color == FigureColor::BLACK)
+            return "Black";
+        return "Empty";
     }
 
 }

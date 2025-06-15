@@ -19,7 +19,7 @@ namespace engine
         void lowerCount(FigureColor color);
 
         bool getPinned() const;
-        void setPinned();
+        void setPinned(bool pin);
 
         private:
         int whiteMatVal; //could be used for eval algorithm for trading pieces

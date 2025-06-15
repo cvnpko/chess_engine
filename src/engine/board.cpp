@@ -102,18 +102,7 @@ namespace engine
         return boardGrid[x][y];
     }
 
-    bool Board::validMove(int xStart, int yStart, int xEnd, int yEnd)
-    {
-        std::pair<int, int> newMove = std::make_pair(xEnd, yEnd);
-        return boardGrid[xStart][yStart].validMove(newMove);
-        //return boardGrid[xStart][yStart].validMove(xStart, yStart, xEnd, yEnd);
-    }
-    void Board::update(int xStart, int yStart, int xEnd, int yEnd)
-    {
-        boardGrid[xEnd][yEnd] = boardGrid[xStart][yStart];
-        boardGrid[xStart][yStart] = Figure();
-        currentTurn = currentTurn == FigureColor::WHITE ? FigureColor::BLACK : FigureColor::WHITE;
-    }
+    
 
     std::pair<int, int> Board::getEp()
     {
@@ -194,37 +183,37 @@ namespace engine
 
         //up
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, -1, 0, kingColor, FigureType::ROOK, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(); 
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true); 
 
         //down
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, 1, 0, kingColor, FigureType::ROOK, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned();
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true);
 
         //left
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, 0, -1, kingColor, FigureType::ROOK, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned();
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true);
 
         //right
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, 0, 1, kingColor, FigureType::ROOK, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned();
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true);
 
         //DIAGONAL
 
         //upleft
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, -1, -1, kingColor, FigureType::BISHOP, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(); 
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true); 
 
         //upright
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, -1, 1, kingColor, FigureType::BISHOP, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned();
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true);
 
         //downleft
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, 1, -1, kingColor, FigureType::BISHOP, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned();
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true);
 
         //downright
         pinCheck = findNextPinnable(kingPos.fi, kingPos.se, 1, 1, kingColor, FigureType::BISHOP, board);
-        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned();
+        if(pinCheck.fi != -1) attackBoard[pinCheck.fi][pinCheck.se].setPinned(true);
     }
 
     static int abs(int a)
@@ -252,7 +241,7 @@ namespace engine
 
     static void moveUntilFigure(int i, int j, int vi, int vj, Figure *figure, Figure (&board)[8][8], AttackField (&attackBoard)[8][8])
     {
-        while(i < 7 && i > 0  && j < 7 && j > 0 && board[i + vi][j + vj].getColor() != FigureColor::NONE)
+        while(i + vi < 8 && i + vi >= 0  && j + vj < 8 && j + vj >= 0 && board[i + vi][j + vj].getColor() == FigureColor::NONE)
         {
             i += vi; j += vj;
             attackBoard[i][j].upCount((*figure).getColor());
@@ -281,7 +270,13 @@ namespace engine
 
     void Board::updateAttackBoard()
     {
-        std::cout << "hiiii";
+        for(int i = 0; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                attackBoard[i][j].setPinned(false);
+            }
+        }
         //set pins
         setPins(whiteKingPos, FigureColor::WHITE, boardGrid, attackBoard);
         setPins(blackKingPos, FigureColor::BLACK, boardGrid, attackBoard);
@@ -537,12 +532,24 @@ namespace engine
                     
                 }
                 boardGrid[i][j] = curr;
-                curr.printValidMoves();
+                if(curr.getType() != FigureType::NONE)
+                    curr.printValidMoves();
             }
         }
         
          
     
+    }
+    bool Board::validMove(int xStart, int yStart, int xEnd, int yEnd)
+    {
+        std::pair<int, int> newMove = std::make_pair(xEnd, yEnd);
+        return boardGrid[xStart][yStart].validMove(newMove);
+    }
+    void Board::update(int xStart, int yStart, int xEnd, int yEnd)
+    {
+        boardGrid[xEnd][yEnd] = boardGrid[xStart][yStart];
+        boardGrid[xStart][yStart] = Figure();
+        currentTurn = currentTurn == FigureColor::WHITE ? FigureColor::BLACK : FigureColor::WHITE;
     }
 
     int Board::getControl(FigureColor color)
