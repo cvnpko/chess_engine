@@ -241,6 +241,7 @@ namespace engine
 
     static void moveUntilFigure(int i, int j, int vi, int vj, Figure *figure, Figure (&board)[8][8], AttackField (&attackBoard)[8][8])
     {
+        FigureColor currcol = board[i][j].getColor();
         while(i + vi < 8 && i + vi >= 0  && j + vj < 8 && j + vj >= 0 && board[i + vi][j + vj].getColor() == FigureColor::NONE)
         {
             i += vi; j += vj;
@@ -249,10 +250,15 @@ namespace engine
             (*figure).pushValidMove(std::make_pair(i, j));
         }
 
-        if(i < 8 && i >= 0 && j < 8 && j >= 0)
+        if(i + vi < 8 && i + vi >= 0 && j + vj < 8 && j + vj >= 0)
         {
+            i += vi; j += vj;
             attackBoard[i][j].upCount((*figure).getColor());
             attackBoard[i][j].addMat((*figure));
+            if(board[i + vi][j + vj].getColor() == reverseColor(currcol))
+            {
+                (*figure).pushValidMove(std::make_pair(i, j));
+            }
         }
     }
 
