@@ -59,7 +59,6 @@ namespace engine
         if (newSide != boardSide)
         {
             Board::changeBoardSide();
-            boardSide = newSide;
         }
     }
     void Board::deselect()
@@ -92,6 +91,7 @@ namespace engine
                 boardGrid[7 - i][j] = tempFig;
             }
         }
+        boardSide = boardSide == BoardSide::BLACK ? BoardSide::WHITE : BoardSide::BLACK;
     }
     Figure &Board::getFigure(int x, int y)
     {
@@ -99,7 +99,11 @@ namespace engine
     }
     bool Board::validMove(int xStart, int yStart, int xEnd, int yEnd)
     {
-        return boardGrid[xStart][yStart].validMove(xStart, yStart, xEnd, yEnd);
+        bool directionUpwards = (boardSide == BoardSide::BLACK &&
+                                 boardGrid[xStart][yStart].getColor() == FigureColor::BLACK) ||
+                                (boardSide == BoardSide::WHITE &&
+                                 boardGrid[xStart][yStart].getColor() == FigureColor::WHITE);
+        return boardGrid[xStart][yStart].validMove(xStart, yStart, xEnd, yEnd, directionUpwards);
     }
     void Board::update(int xStart, int yStart, int xEnd, int yEnd)
     {
