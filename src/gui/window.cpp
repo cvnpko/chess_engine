@@ -130,7 +130,7 @@ namespace gui
     }
     bool Window::whiteRectangleContains(float x, float y) const
     {
-        return buttonBlack.getGlobalBounds().contains(x, y);
+        return buttonWhite.getGlobalBounds().contains(x, y);
     }
     bool Window::blackRectangleContains(float x, float y) const
     {
