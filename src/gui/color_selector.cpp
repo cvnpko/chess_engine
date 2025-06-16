@@ -15,7 +15,6 @@ namespace gui
         {
             handleEvents(select);
             render();
-
             if (select != SelectColor::NONE)
             {
                 window.close();
@@ -82,11 +81,6 @@ namespace gui
     void ColorSelector::render()
     {
         window.clear(sf::Color(100, 100, 100));
-        window.draw(text);
-        window.draw(buttonWhite);
-        window.draw(textWhite);
-        window.draw(buttonBlack);
-        window.draw(textBlack);
         window.display();
     }
 }

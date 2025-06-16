@@ -5,6 +5,7 @@
 #include "gui/window.hpp"
 #include "gui/board_renderer.hpp"
 #include "config/settings.hpp"
+#include "gui/state.hpp"
 #include <SFML/Graphics.hpp>
 
 namespace gui
@@ -12,12 +13,13 @@ namespace gui
     class EventHandler
     {
     public:
-        EventHandler(engine::Board &board, gui::Window &window, conf::Settings &settings);
+        EventHandler(engine::Board &board, gui::Window &window, conf::Settings &settings, gui::State &currentState);
         void processEvents();
 
     private:
         engine::Board &board;
         gui::Window &window;
+        gui::State &currentState;
         conf::Settings &settings;
         sf::Vector2i selectedSquare;
         void handleEvent(const sf::Event &event);

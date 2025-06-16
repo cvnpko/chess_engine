@@ -3,37 +3,27 @@
 
 namespace gui
 {
-    BoardRenderer::BoardRenderer(engine::Board &b, gui::Window &w, conf::Settings &s)
-        : board(b), window(w), settings(s)
+    BoardRenderer::BoardRenderer(engine::Board &b, gui::Window &w, conf::Settings &s, gui::State &cs)
+        : board(b), window(w), settings(s), currentState(cs)
     {
-        valid = loadTextures();
-    }
-    bool BoardRenderer::isValid() const
-    {
-        return valid;
-    }
-    bool BoardRenderer::loadTextures()
-    {
-        const std::vector<std::string> pieces = {
-            "wp", "wr", "wn", "wb", "wq", "wk",
-            "bp", "br", "bn", "bb", "bq", "bk"};
-        for (const auto &key : pieces)
-        {
-            sf::Texture texture;
-            std::string path = "assets/images/chess_sets/default/" + key + ".png";
-            if (!texture.loadFromFile(path))
-            {
-                return false;
-            }
-            pieceTextures[key] = std::move(texture);
-        }
-        return true;
     }
 
     void BoardRenderer::draw()
     {
-        drawSquares();
-        drawPieces();
+        switch (currentState)
+        {
+        case State::START:
+            window.drawStart();
+            break;
+        case State::GAME:
+            drawSquares();
+            drawPieces();
+            break;
+        case State::PROMOTION:
+            break;
+        case State::END:
+            break;
+        }
     }
 
     void BoardRenderer::drawSquares()
@@ -104,16 +94,16 @@ namespace gui
             for (int col = 0; col < 8; ++col)
             {
                 const engine::Figure &figure = board.getFigure(row, col);
+                if (figure.getType() == engine::FigureType::NONE)
+                {
+                    continue;
+                }
                 std::string key = getTextureKey(figure);
                 if (key.empty())
                 {
                     continue;
                 }
-                auto it = pieceTextures.find(key);
-                if (it == pieceTextures.end())
-                {
-                    continue;
-                }
+                std::map<std::string, sf::Texture>::const_iterator it = window.atPieceTextures(key);
                 sf::Sprite sprite(it->second);
                 const sf::Texture *texture = sprite.getTexture();
                 if (texture)

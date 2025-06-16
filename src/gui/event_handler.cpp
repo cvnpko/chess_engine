@@ -2,40 +2,84 @@
 
 namespace gui
 {
-    EventHandler::EventHandler(engine::Board &b, gui::Window &w, conf::Settings &s)
-        : board(b), window(w), settings(s)
+    EventHandler::EventHandler(engine::Board &b, gui::Window &w, conf::Settings &s, gui::State &cs)
+        : board(b), window(w), settings(s), currentState(cs)
     {
     }
 
     void EventHandler::processEvents()
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        switch (currentState)
         {
-            switch (event.type)
+        case gui::State::START:
+            while (window.pollEvent(event))
             {
-            case sf::Event::Closed:
-            {
-                window.close();
-            }
-            break;
-            case sf::Event::MouseButtonPressed:
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
+                switch (event.type)
                 {
-                    handleClick(event.mouseButton.x, event.mouseButton.y, settings.getSquareSize());
-                }
-            }
-            break;
-            case sf::Event::KeyPressed:
-            {
-                if (event.key.code == sf::Keyboard::Escape)
+                case sf::Event::Closed:
                 {
                     window.close();
                 }
+                break;
+                case sf::Event::MouseButtonPressed:
+                {
+                    sf::Vector2i mousePos = window.getMousePosition();
+                    if (window.whiteRectangleContains((float)mousePos.x, (float)mousePos.y))
+                    {
+                        currentState = gui::State::GAME;
+                    }
+                    if (window.blackRectangleContains((float)mousePos.x, (float)mousePos.y))
+                    {
+                        currentState = gui::State::GAME;
+                        board.changeBoardSide();
+                    }
+                }
+                break;
+                case sf::Event::KeyPressed:
+                {
+                    if (event.key.code == sf::Keyboard::Escape)
+                    {
+                        window.close();
+                    }
+                }
+                break;
+                }
             }
             break;
+        case gui::State::GAME:
+            while (window.pollEvent(event))
+            {
+                switch (event.type)
+                {
+                case sf::Event::Closed:
+                {
+                    window.close();
+                }
+                break;
+                case sf::Event::MouseButtonPressed:
+                {
+                    if (event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        handleClick(event.mouseButton.x, event.mouseButton.y, settings.getSquareSize());
+                    }
+                }
+                break;
+                case sf::Event::KeyPressed:
+                {
+                    if (event.key.code == sf::Keyboard::Escape)
+                    {
+                        window.close();
+                    }
+                }
+                break;
+                }
             }
+            break;
+        case gui::State::PROMOTION:
+            break;
+        case gui::State::END:
+            break;
         }
     }
 

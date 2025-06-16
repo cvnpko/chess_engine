@@ -4,36 +4,27 @@
 #include "gui/event_handler.hpp"
 #include "engine/board.hpp"
 #include "gui/color_selector.hpp"
+#include "gui/state.hpp"
 #include <iostream>
 
 int main()
 {
+    gui::State currentState(gui::State::START);
     conf::Settings settings;
-    gui::ColorSelector colorSelector(settings);
-    gui::SelectColor select = colorSelector.run();
-    if (select == gui::SelectColor::NONE)
-    {
-        std::cerr << "Failed to select a color.\n";
-        return 1;
-    }
     gui::Window window(settings);
-    engine::Board board;
-    if (select == gui::SelectColor::BLACK)
+    if (!window.isValid())
     {
-        board.changeBoardSide();
-    }
-    gui::BoardRenderer boardRenderer(board, window, settings);
-    if (!boardRenderer.isValid())
-    {
-        std::cerr << "Failed to load textures in BoardRenderer constructor.\n";
+        std::cerr << "Failed to load textures.\n";
         return 1;
     }
-    gui::EventHandler eventHandler(board, window, settings);
+    engine::Board board;
+    gui::BoardRenderer boardRenderer(board, window, settings, currentState);
+    gui::EventHandler eventHandler(board, window, settings, currentState);
 
     while (window.isOpen())
     {
         eventHandler.processEvents();
-        window.clear();
+        window.clear(settings.getBackgroundColor());
         boardRenderer.draw();
         window.display();
     }

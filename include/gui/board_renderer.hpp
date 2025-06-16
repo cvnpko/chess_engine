@@ -7,23 +7,21 @@
 #include "config/settings.hpp"
 #include "engine/board.hpp"
 #include "gui/window.hpp"
+#include "gui/state.hpp"
 
 namespace gui
 {
     class BoardRenderer
     {
     public:
-        BoardRenderer(engine::Board &board, gui::Window &window, conf::Settings &settings);
+        BoardRenderer(engine::Board &board, gui::Window &window, conf::Settings &settings, gui::State &currentState);
         void draw();
-        bool isValid() const;
 
     private:
         engine::Board &board;
         gui::Window &window;
+        gui::State &currentState;
         conf::Settings &settings;
-        bool valid;
-        std::map<std::string, sf::Texture> pieceTextures;
-        bool loadTextures();
         void drawSquares();
         void drawPieces();
         std::string getTextureKey(const engine::Figure &figure) const;

@@ -3,7 +3,7 @@
 namespace conf
 {
     Settings::Settings() : title("Chess Engine"), squareSize(100.0f),
-                           curWidth(800), curHeight(800)
+                           curWidth(800), curHeight(800), backgroundColor(sf::Color(100, 100, 100))
     {
     }
     std::string Settings::getTitle() const
@@ -22,4 +22,9 @@ namespace conf
     {
         return curWidth;
     }
+    sf::Color Settings::getBackgroundColor() const
+    {
+        return backgroundColor;
+    }
+
 }
