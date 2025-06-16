@@ -22,19 +22,19 @@ int main()
     {
         board.changeBoardSide();
     }
-    gui::BoardRenderer boardRenderer(board);
+    gui::BoardRenderer boardRenderer(board, window, settings);
     if (!boardRenderer.isValid())
     {
         std::cerr << "Failed to load textures in BoardRenderer constructor.\n";
         return 1;
     }
-    gui::EventHandler eventHandler(board, window);
+    gui::EventHandler eventHandler(board, window, settings);
 
     while (window.isOpen())
     {
-        eventHandler.processEvents(settings);
+        eventHandler.processEvents();
         window.clear();
-        boardRenderer.draw(window, settings);
+        boardRenderer.draw();
         window.display();
     }
 

@@ -3,8 +3,8 @@
 
 namespace gui
 {
-    BoardRenderer::BoardRenderer(engine::Board &b)
-        : board(b)
+    BoardRenderer::BoardRenderer(engine::Board &b, gui::Window &w, conf::Settings &s)
+        : board(b), window(w), settings(s)
     {
         valid = loadTextures();
     }
@@ -30,14 +30,15 @@ namespace gui
         return true;
     }
 
-    void BoardRenderer::draw(gui::Window &window, conf::Settings &settings)
+    void BoardRenderer::draw()
     {
-        drawSquares(window, settings.getSquareSize());
-        drawPieces(window, settings.getSquareSize());
+        drawSquares();
+        drawPieces();
     }
 
-    void BoardRenderer::drawSquares(gui::Window &window, float squareSize)
+    void BoardRenderer::drawSquares()
     {
+        float squareSize = settings.getSquareSize();
         sf::RectangleShape square(sf::Vector2f(squareSize, squareSize));
         bool lightSquare = true;
 
@@ -95,8 +96,9 @@ namespace gui
         return key;
     }
 
-    void BoardRenderer::drawPieces(gui::Window &window, float squareSize)
+    void BoardRenderer::drawPieces()
     {
+        float squareSize = settings.getSquareSize();
         for (int row = 0; row < 8; ++row)
         {
             for (int col = 0; col < 8; ++col)

@@ -2,12 +2,12 @@
 
 namespace gui
 {
-    EventHandler::EventHandler(engine::Board &b, gui::Window &w)
-        : board(b), window(w)
+    EventHandler::EventHandler(engine::Board &b, gui::Window &w, conf::Settings &s)
+        : board(b), window(w), settings(s)
     {
     }
 
-    void EventHandler::processEvents(conf::Settings &settings)
+    void EventHandler::processEvents()
     {
         sf::Event event;
         while (window.pollEvent(event))

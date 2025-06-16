@@ -12,16 +12,17 @@ namespace gui
     class EventHandler
     {
     public:
-        EventHandler(engine::Board &board, gui::Window &window);
-        void processEvents(conf::Settings &settings);
+        EventHandler(engine::Board &board, gui::Window &window, conf::Settings &settings);
+        void processEvents();
 
     private:
         engine::Board &board;
         gui::Window &window;
+        conf::Settings &settings;
         sf::Vector2i selectedSquare;
         void handleEvent(const sf::Event &event);
         void handleClick(int x, int y, unsigned int squareSize);
-        void handleResize(unsigned width, unsigned height, conf::Settings &settings);
+        void handleResize(unsigned width, unsigned height);
         sf::Vector2i getBoardCoordinates(int x, int y) const;
     };
 }

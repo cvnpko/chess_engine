@@ -13,17 +13,19 @@ namespace gui
     class BoardRenderer
     {
     public:
-        BoardRenderer(engine::Board &board);
-        void draw(gui::Window &window, conf::Settings &settings);
+        BoardRenderer(engine::Board &board, gui::Window &window, conf::Settings &settings);
+        void draw();
         bool isValid() const;
 
     private:
         engine::Board &board;
+        gui::Window &window;
+        conf::Settings &settings;
         bool valid;
         std::map<std::string, sf::Texture> pieceTextures;
         bool loadTextures();
-        void drawSquares(gui::Window &window, float squareSize);
-        void drawPieces(gui::Window &window, float squareSize);
+        void drawSquares();
+        void drawPieces();
         std::string getTextureKey(const engine::Figure &figure) const;
     };
 }
