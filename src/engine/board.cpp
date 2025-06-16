@@ -234,8 +234,8 @@ namespace engine
                 Figure tmp2 = boardGrid[xStart][yEnd];
                 boardGrid[xStart][yEnd] = Figure();
             }
-            if (currentTurn == FigureColor::BLACK && isAttacked(blackKingRow, blackKingCol, FigureColor::WHITE, boardSide == BoardSide::WHITE) ||
-                currentTurn == FigureColor::WHITE && isAttacked(whiteKingRow, whiteKingCol, FigureColor::BLACK, boardSide == BoardSide::BLACK))
+            if (currentTurn == FigureColor::BLACK && isAttacked(newKingRow, newKingCol, FigureColor::WHITE, boardSide == BoardSide::WHITE) ||
+                currentTurn == FigureColor::WHITE && isAttacked(newKingRow, newKingCol, FigureColor::BLACK, boardSide == BoardSide::BLACK))
             {
                 boardGrid[xStart][yStart] = boardGrid[xEnd][yEnd];
                 boardGrid[xEnd][yEnd] = tmp1;
