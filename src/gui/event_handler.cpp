@@ -51,10 +51,7 @@ namespace gui
         if (board.getIsSelected())
         {
             board.deselect();
-            if (board.validMove(board.getSelectedRow(), board.getSelectedCol(), row, col))
-            {
-                board.update(board.getSelectedRow(), board.getSelectedCol(), row, col);
-            }
+            board.validMove(board.getSelectedRow(), board.getSelectedCol(), row, col);
         }
         else
         {

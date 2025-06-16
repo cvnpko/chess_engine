@@ -2,6 +2,7 @@
 #define ENGINE_TABLE_HPP
 
 #include "engine/figure.hpp"
+#include <vector>
 
 namespace engine
 {
@@ -19,10 +20,11 @@ namespace engine
         void setBoardSide(BoardSide newSide);
         void changeBoardSide();
         bool validMove(int xStart, int yStart, int xEnd, int yEnd);
-        void update(int xStart, int yStart, int xEnd, int yEnd);
+        std::vector<std::pair<int, int>> possibleMoves(int xStart, int yStart);
         bool getIsSelected() const;
         int getSelectedRow() const;
         int getSelectedCol() const;
+        bool isAttacked(int x, int y, FigureColor attackingColor, bool attackerUpwards);
         void deselect();
         void select(const int x, const int y);
         FigureColor getCurrentTurn() const;
@@ -32,6 +34,9 @@ namespace engine
         BoardSide boardSide;
         FigureColor currentTurn;
         int selectedRow, selectedCol;
+        int enPassantRow, enPassantCol;
+        int whiteKingRow, whiteKingCol;
+        int blackKingRow, blackKingCol;
         bool isSelected;
     };
 }
