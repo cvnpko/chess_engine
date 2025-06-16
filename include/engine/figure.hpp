@@ -27,12 +27,12 @@ namespace engine
         Figure(FigureType type, FigureColor color);
         FigureType getType() const;
         FigureColor getColor() const;
-        bool getPinned() const;
+        bool getMovedBefore() const;
+        void setMovedBefore(bool val);
         bool getSelected() const;
-        void setPinned(bool pinStatus);
         void setSelected(bool selectStatus);
         std::vector<std::pair<int, int>> possibleMoves(int xStart, int yStart, bool directionUpwards);
-        bool validMove(int xStart, int yStart, int xEnd, int yEnd, bool directionUpwards);
+        bool validMove(int xStart, int yStart, int xEnd, int yEnd, bool directionUpwards) const;
 
     private:
         FigureType type;

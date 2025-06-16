@@ -19,6 +19,14 @@ namespace engine
     {
         return color;
     }
+    bool Figure::getMovedBefore() const
+    {
+        return movedBefore;
+    }
+    void Figure::setMovedBefore(bool val)
+    {
+        movedBefore = val;
+    }
     bool Figure::getSelected() const
     {
         return isSelected;
@@ -27,7 +35,7 @@ namespace engine
     {
         isSelected = selectStatus;
     }
-    bool Figure::validMove(int xStart, int yStart, int xEnd, int yEnd, bool directionUpwards)
+    bool Figure::validMove(int xStart, int yStart, int xEnd, int yEnd, bool directionUpwards) const
     {
         if (xStart == xEnd && yStart == yEnd)
         {
