@@ -1,13 +1,13 @@
 #include "gui/color_selector.hpp"
-
+#include <filesystem>
 namespace gui
 {
     ColorSelector::ColorSelector(conf::Settings settings) : window(settings) {}
     SelectColor ColorSelector::run()
     {
         SelectColor select = NONE;
-        //if (!font.loadFromFile("assets/fonts/arial.ttf"))
-        if(!font.loadFromFile("D:\\Projects\\GitHub\\chess_engine\\assets\\fonts\\arial.ttf"))
+        std::filesystem::path fontPath = std::filesystem::current_path() / "assets" / "fonts" / "arial.ttf";
+        if (!font.loadFromFile(fontPath.string()))
         {
             return select;
         }
