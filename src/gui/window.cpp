@@ -14,8 +14,158 @@ namespace gui
     {
         return valid;
     }
+    void Window::drawOverLayer(bool shouldWhite)
+    {
+        window.draw(overLayer);
+        window.draw(queenButton);
+        window.draw(rookButton);
+        window.draw(knightButton);
+        window.draw(bishopButton);
+        if (shouldWhite)
+        {
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("wq");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(queenButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("wr");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(rookButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("wn");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(knightButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("wb");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(bishopButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+        }
+        else
+        {
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("bq");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(queenButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("br");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(rookButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("bn");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(knightButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+            {
+                std::map<std::string, sf::Texture>::const_iterator it = atPieceTextures("bb");
+                sf::Sprite sprite(it->second);
+                const sf::Texture *texture = sprite.getTexture();
+                if (texture)
+                {
+                    float texWidth = static_cast<float>(texture->getSize().x);
+                    float texHeight = static_cast<float>(texture->getSize().y);
+                    float scaleX = 100.0f / texWidth;
+                    float scaleY = 100.0f / texHeight;
+                    sprite.setScale(scaleX, scaleY);
+                    sprite.setPosition(bishopButton.getPosition());
+                }
+                window.draw(sprite);
+            }
+        }
+    }
     bool Window::loadTextures()
     {
+        overLayer.setSize({480, 120});
+        overLayer.setPosition(400 - overLayer.getLocalBounds().width / 2, 400 - overLayer.getLocalBounds().height / 2);
+        overLayer.setFillColor(sf::Color(200, 200, 200, 200));
+        queenButton.setSize({100, 100});
+        queenButton.setPosition(400 - overLayer.getLocalBounds().width / 2 + 10, 400 - queenButton.getLocalBounds().height / 2);
+        queenButton.setFillColor(sf::Color(100, 100, 100, 200));
+        rookButton.setSize({100, 100});
+        rookButton.setPosition(400 - overLayer.getLocalBounds().width / 2 + 130, 400 - rookButton.getLocalBounds().height / 2);
+        rookButton.setFillColor(sf::Color(100, 100, 100, 200));
+        bishopButton.setSize({100, 100});
+        bishopButton.setPosition(400 - overLayer.getLocalBounds().width / 2 + 250, 400 - bishopButton.getLocalBounds().height / 2);
+        bishopButton.setFillColor(sf::Color(100, 100, 100, 200));
+        knightButton.setSize({100, 100});
+        knightButton.setPosition(400 - overLayer.getLocalBounds().width / 2 + 370, 400 - knightButton.getLocalBounds().height / 2);
+        knightButton.setFillColor(sf::Color(100, 100, 100, 200));
+
         if (!font.loadFromFile("assets/fonts/arial.ttf"))
         {
             return false;

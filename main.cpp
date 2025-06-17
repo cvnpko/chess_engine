@@ -9,7 +9,7 @@
 
 int main()
 {
-    gui::State currentState(gui::State::START);
+    gui::State currentState(gui::State::PROMOTION);
     conf::Settings settings;
     gui::Window window(settings);
     if (!window.isValid())

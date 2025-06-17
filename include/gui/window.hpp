@@ -29,12 +29,14 @@ namespace gui
         std::map<std::string, sf::Texture>::const_iterator atPieceTextures(std::string key) const;
         bool whiteRectangleContains(float x, float y) const;
         bool blackRectangleContains(float x, float y) const;
+        void drawOverLayer(bool shouldWhite);
 
     private:
         sf::RenderWindow window;
         sf::Font font;
         sf::Text text;
         sf::RectangleShape buttonWhite, buttonBlack;
+        sf::RectangleShape overLayer, queenButton, rookButton, bishopButton, knightButton;
         sf::Text textWhite, textBlack;
         bool valid;
         std::map<std::string, sf::Texture> pieceTextures;

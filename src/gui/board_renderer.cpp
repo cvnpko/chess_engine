@@ -20,6 +20,9 @@ namespace gui
             drawPieces();
             break;
         case State::PROMOTION:
+            drawSquares();
+            drawPieces();
+            window.drawOverLayer(board.getCurrentTurn() == engine::FigureColor::WHITE);
             break;
         case State::END:
             break;
