@@ -1,10 +1,10 @@
 #include "gui/board_renderer.hpp"
-#include <stdexcept>
+#include <vector>
 
 namespace gui
 {
-    BoardRenderer::BoardRenderer(engine::Board &b, gui::Window &w, conf::Settings &s, gui::State &cs)
-        : board(b), window(w), settings(s), currentState(cs)
+    BoardRenderer::BoardRenderer(engine::Board &b, gui::Window &w, conf::Settings &s, gui::State &cs, gui::Resources &r)
+        : board(b), window(w), settings(s), currentState(cs), resources(r)
     {
     }
 
@@ -13,7 +13,7 @@ namespace gui
         switch (currentState)
         {
         case State::START:
-            window.drawStart();
+            drawStart();
             break;
         case State::GAME:
             drawSquares();
@@ -22,10 +22,36 @@ namespace gui
         case State::PROMOTION:
             drawSquares();
             drawPieces();
-            window.drawOverLayer(board.getCurrentTurn() == engine::FigureColor::WHITE);
+            drawPromotion();
             break;
         case State::END:
             break;
+        }
+    }
+
+    void BoardRenderer::drawPromotion()
+    {
+        if (board.getCurrentTurn() == engine::FigureColor::WHITE)
+        {
+            resources.setPromotionWhite();
+        }
+        else
+        {
+            resources.setPromotionBlack();
+        }
+        std::vector<const sf::Drawable *> vec = resources.getPromotionResources();
+        for (auto &v : vec)
+        {
+            window.draw(*v);
+        }
+    }
+
+    void BoardRenderer::drawStart()
+    {
+        std::vector<const sf::Drawable *> vec = resources.getStartResources();
+        for (auto &v : vec)
+        {
+            window.draw(*v);
         }
     }
 
@@ -106,7 +132,7 @@ namespace gui
                 {
                     continue;
                 }
-                std::map<std::string, sf::Texture>::const_iterator it = window.atPieceTextures(key);
+                std::map<std::string, sf::Texture>::const_iterator it = resources.atPieceTextures(key);
                 sf::Sprite sprite(it->second);
                 const sf::Texture *texture = sprite.getTexture();
                 if (texture)

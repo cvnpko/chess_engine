@@ -3,23 +3,24 @@
 #include "gui/board_renderer.hpp"
 #include "gui/event_handler.hpp"
 #include "engine/board.hpp"
-#include "gui/color_selector.hpp"
+#include "gui/resources.hpp"
 #include "gui/state.hpp"
 #include <iostream>
 
 int main()
 {
-    gui::State currentState(gui::State::PROMOTION);
     conf::Settings settings;
-    gui::Window window(settings);
-    if (!window.isValid())
+    gui::Resources resources;
+    if (!resources.isValid())
     {
-        std::cerr << "Failed to load textures.\n";
+        std::cerr << "Failed to load resources.\n";
         return 1;
     }
+    gui::Window window(settings);
     engine::Board board;
-    gui::BoardRenderer boardRenderer(board, window, settings, currentState);
-    gui::EventHandler eventHandler(board, window, settings, currentState);
+    gui::State currentState(gui::State::PROMOTION);
+    gui::BoardRenderer boardRenderer(board, window, settings, currentState, resources);
+    gui::EventHandler eventHandler(board, window, settings, currentState, resources);
 
     while (window.isOpen())
     {

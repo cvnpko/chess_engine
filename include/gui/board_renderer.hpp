@@ -8,13 +8,14 @@
 #include "engine/board.hpp"
 #include "gui/window.hpp"
 #include "gui/state.hpp"
+#include "gui/resources.hpp"
 
 namespace gui
 {
     class BoardRenderer
     {
     public:
-        BoardRenderer(engine::Board &board, gui::Window &window, conf::Settings &settings, gui::State &currentState);
+        BoardRenderer(engine::Board &board, gui::Window &window, conf::Settings &settings, gui::State &currentState, gui::Resources &resources);
         void draw();
 
     private:
@@ -22,8 +23,11 @@ namespace gui
         gui::Window &window;
         gui::State &currentState;
         conf::Settings &settings;
+        gui::Resources &resources;
         void drawSquares();
         void drawPieces();
+        void drawStart();
+        void drawPromotion();
         std::string getTextureKey(const engine::Figure &figure) const;
     };
 }

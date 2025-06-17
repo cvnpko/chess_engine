@@ -2,8 +2,8 @@
 
 namespace gui
 {
-    EventHandler::EventHandler(engine::Board &b, gui::Window &w, conf::Settings &s, gui::State &cs)
-        : board(b), window(w), settings(s), currentState(cs)
+    EventHandler::EventHandler(engine::Board &b, gui::Window &w, conf::Settings &s, gui::State &cs, gui::Resources &r)
+        : board(b), window(w), settings(s), currentState(cs), resources(r)
     {
     }
 
@@ -25,11 +25,11 @@ namespace gui
                 case sf::Event::MouseButtonPressed:
                 {
                     sf::Vector2i mousePos = window.getMousePosition();
-                    if (window.whiteRectangleContains((float)mousePos.x, (float)mousePos.y))
+                    if (resources.whiteRectangleContains((float)mousePos.x, (float)mousePos.y))
                     {
                         currentState = gui::State::GAME;
                     }
-                    if (window.blackRectangleContains((float)mousePos.x, (float)mousePos.y))
+                    if (resources.blackRectangleContains((float)mousePos.x, (float)mousePos.y))
                     {
                         currentState = gui::State::GAME;
                         board.changeBoardSide();
