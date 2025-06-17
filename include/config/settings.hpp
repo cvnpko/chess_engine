@@ -2,6 +2,7 @@
 #define CONFIG_SETTINGS_HPP
 #include <string>
 #include <SFML/Graphics.hpp>
+
 namespace conf
 {
     class Settings

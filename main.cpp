@@ -2,9 +2,9 @@
 #include "gui/window.hpp"
 #include "gui/board_renderer.hpp"
 #include "gui/event_handler.hpp"
-#include "engine/board.hpp"
 #include "gui/resources.hpp"
 #include "gui/state.hpp"
+#include "engine/board.hpp"
 #include <iostream>
 
 int main()
@@ -18,7 +18,7 @@ int main()
     }
     gui::Window window(settings);
     engine::Board board;
-    gui::State currentState(gui::State::PROMOTION);
+    gui::State currentState(gui::State::START);
     gui::BoardRenderer boardRenderer(board, window, settings, currentState, resources);
     gui::EventHandler eventHandler(board, window, settings, currentState, resources);
 
